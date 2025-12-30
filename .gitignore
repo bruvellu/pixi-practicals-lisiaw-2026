@@ -1,0 +1,12 @@
+# Downloaded datasets and binaries
+fiji/
+3d-tutorial/
+multiview-tutorial/
+cartography-tutorial/
+tracking-tutorial/
+
+# Pixi artifacts
+.pixi/
+
+# Repository metadata
+.github/

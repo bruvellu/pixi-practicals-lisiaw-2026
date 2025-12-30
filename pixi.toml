@@ -6,35 +6,47 @@ platforms = ["linux-64", "win-64", "osx-arm64"]
 version = "0.1.0"
 
 [tasks]
-download-data = """
-# Fiji
+download-fiji = """
 mkdir -p fiji &&
 curl -L https://downloads.imagej.net/fiji/stable/fiji-stable-win64-jdk.zip --output fiji/fiji-stable-win64-jdk.zip &&
-unzip -o fiji/fiji-stable-win64-jdk.zip -d fiji/fiji-stable-win64-jdk
+tar -xf fiji/fiji-stable-win64-jdk.zip -C fiji
+"""
 
-# 3D Tutorial
+download-3d-tutorial = """
 mkdir -p 3d-tutorial &&
 curl -L https://zenodo.org/api/records/18065739/files-archive --output 3d-tutorial/Fly_Embryo_Timelapse_Lightsheet_Dataset.zip &&
-unzip -o 3d-tutorial/Fly_Embryo_Timelapse_Lightsheet_Dataset.zip -d 3d-tutorial/Fly_Embryo_Timelapse_Lightsheet_Dataset
+tar -xf 3d-tutorial/Fly_Embryo_Timelapse_Lightsheet_Dataset.zip -C 3d-tutorial
+"""
 
-# Multiview Tutorial
+download-multiview-tutorial = """
 mkdir -p multiview-tutorial &&
 curl -L https://zenodo.org/api/records/18078062/files-archive --output multiview-tutorial/Fly_Embryo_Multiview_Lightsheet_Dataset.zip &&
-unzip -o multiview-tutorial/Fly_Embryo_Multiview_Lightsheet_Dataset.zip -d multiview-tutorial/Fly_Embryo_Multiview_Lightsheet_Dataset &&
-unzip -o multiview-tutorial/Fly_Embryo_Multiview_Lightsheet_Dataset/Dmel_btd-gap_1tp_5v_2c_beads.zip -d multiview-tutorial/Fly_Embryo_Multiview_Lightsheet_Dataset/
+tar -xf multiview-tutorial/Fly_Embryo_Multiview_Lightsheet_Dataset.zip -C multiview-tutorial &&
+tar -xf multiview-tutorial/Fly_Embryo_Multiview_Lightsheet_Dataset/Dmel_btd-gap_1tp_5v_2c_beads.zip -C multiview-tutorial/Fly_Embryo_Multiview_Lightsheet_Dataset/
+"""
 
-# Cartography Tutorial
+download-cartography-tutorial = """
 mkdir -p cartography-tutorial &&
 curl -L https://github.com/nikolas-claussen/blender-tissue-cartography/raw/refs/heads/main/nbs/Tutorials/drosophila_example/Drosophila_CAAX-mCherry.tif --output cartography-tutorial/Drosophila_CAAX-mCherry.tif &&
 curl -L https://github.com/nikolas-claussen/blender-tissue-cartography/raw/refs/heads/main/blender_addon/blender_tissue_cartography-1.0.0-windows_x64.zip --output cartography-tutorial/blender_tissue_cartography-1.0.0-windows_x64.zip &&
 curl -L https://download.blender.org/release/Blender4.2/blender-4.2.9-windows-x64.msi --output cartography-tutorial/blender-4.2.9-windows-x64.msi &&
 curl -L https://files.ilastik.org/ilastik-1.4.1.post1-win64.exe --output cartography-tutorial/ilastik-1.4.1.post1-win64.exe
+"""
 
-# Tracking Tutorial
+download-tracking-tutorial = """
 mkdir -p tracking-tutorial &&
 curl -L https://zenodo.org/api/records/13944688/files-archive --output tracking-tutorial/Mastodon_Demo_Dataset.zip &&
-unzip -o tracking-tutorial/Mastodon_Demo_Dataset.zip -d tracking-tutorial/ &&
-unzip -o tracking-tutorial/Mastodon_Auto-Tracking_Demo_Ph-limb-dev.zip -d tracking-tutorial/Mastodon_Auto-Tracking_Demo_Ph-limb-dev
+tar -xf tracking-tutorial/Mastodon_Demo_Dataset.zip -C tracking-tutorial &&
+curl -L https://zenodo.org/api/records/13944917/files-archive --output tracking-tutorial/Mastodon_Auto-Tracking_Demo_Ph-limb-dev.zip &&
+tar -xf tracking-tutorial/Mastodon_Auto-Tracking_Demo_Ph-limb-dev.zip -C tracking-tutorial/Mastodon_Auto-Tracking_Demo_Ph-limb-dev
+"""
+
+download-data = """
+pixi run download-fiji &&
+pixi run download-3d-tutorial &&
+pixi run download-multiview-tutorial &&
+pixi run download-cartography-tutorial &&
+pixi run download-tracking-tutorial
 """
 
 [dependencies]
