@@ -42,11 +42,11 @@ tar -xf tracking-tutorial/Mastodon_Auto-Tracking_Demo_Ph-limb-dev.zip -C trackin
 """
 
 download-data = """
-pixi run download-fiji &&
-pixi run download-3d-tutorial &&
-pixi run download-multiview-tutorial &&
-pixi run download-cartography-tutorial &&
-pixi run download-tracking-tutorial
+pixi run download-fiji || echo download-fiji failed &
+pixi run download-3d-tutorial || echo download-3d-tutorial failed &
+pixi run download-multiview-tutorial || echo download-multiview-tutorial failed &
+pixi run download-cartography-tutorial || echo download-cartography-tutorial failed &
+pixi run download-tracking-tutorial || echo download-tracking-tutorial failed
 """
 
 [dependencies]
